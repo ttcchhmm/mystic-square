@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    QApplication::setWindowIcon(QIcon(":/assets/icon.png"));
 
     QTranslator translator;
     if(translator.load(QLocale(), "MysticSquare", "-")) {
