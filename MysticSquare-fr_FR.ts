@@ -119,5 +119,14 @@
         <source>Learn more about Qt</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>About Mystic Square</source>
+        <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mystic Square, by Tom Chedmail. Made as an assignment for the Qt course.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
