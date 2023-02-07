@@ -2,6 +2,8 @@
 #include <QTranslator>
 #include <QDebug>
 
+#include "mainwindow.hh"
+
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
@@ -10,6 +12,9 @@ int main(int argc, char *argv[]) {
         qDebug() << "Loading translation from" << translator.filePath();
         QCoreApplication::installTranslator(&translator);
     }
+
+    MainWindow m;
+    m.show();
 
     return QApplication::exec();
 }
