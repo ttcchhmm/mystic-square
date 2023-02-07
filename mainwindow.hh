@@ -16,6 +16,10 @@ public:
 
     ~MainWindow() override;
 
+public slots:
+    void aboutApp();
+    void aboutQt();
+
 private:
     Ui::MainWindow *ui;
 };
