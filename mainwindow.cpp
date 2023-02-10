@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionAboutApp, &QAction::triggered, this, &MainWindow::aboutApp);
     connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
+
+    connect(ui->actionQuit, &QAction::triggered, this, &QApplication::quit);
 }
 
 MainWindow::~MainWindow() {
