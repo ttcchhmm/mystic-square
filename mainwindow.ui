@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QWidget" name="playArea" native="true"/>
+     <widget class="GameWidget" name="playArea" native="true"/>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -122,7 +122,8 @@
      <string>Help</string>
     </property>
     <property name="icon">
-     <iconset theme="help-about-symbolic"/>
+     <iconset theme="help-about-symbolic">
+      <normaloff>.</normaloff>.</iconset>
     </property>
     <addaction name="actionAboutApp"/>
     <addaction name="actionAboutQt"/>
@@ -134,7 +135,8 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNewGame">
    <property name="icon">
-    <iconset theme="document-new-symbolic"/>
+    <iconset theme="document-new-symbolic">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>New Game</string>
@@ -148,7 +150,8 @@
   </action>
   <action name="actionLoadGame">
    <property name="icon">
-    <iconset theme="document-open-symbolic"/>
+    <iconset theme="document-open-symbolic">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Load Game</string>
@@ -162,7 +165,8 @@
   </action>
   <action name="actionSaveGame">
    <property name="icon">
-    <iconset theme="document-save-symbolic"/>
+    <iconset theme="document-save-symbolic">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Save Game</string>
@@ -176,7 +180,8 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit-symbolic"/>
+    <iconset theme="application-exit-symbolic">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -222,7 +227,8 @@
   </action>
   <action name="actionAboutApp">
    <property name="icon">
-    <iconset theme="help-about-symbolic"/>
+    <iconset theme="help-about-symbolic">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>About Mystic Square</string>
@@ -233,7 +239,8 @@
   </action>
   <action name="actionAboutQt">
    <property name="icon">
-    <iconset theme="qt"/>
+    <iconset theme="qt">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>About Qt</string>
@@ -243,6 +250,63 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GameWidget</class>
+   <extends>QWidget</extends>
+   <header>gamewidget.hh</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>newGameBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>actionNewGame</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>53</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>loadGameBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>actionLoadGame</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveGameBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>actionSaveGame</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
