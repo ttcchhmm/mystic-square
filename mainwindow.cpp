@@ -8,9 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    // -- Connects --
     connect(ui->actionAboutApp, &QAction::triggered, this, &MainWindow::aboutApp);
     connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
-
     connect(ui->actionQuit, &QAction::triggered, this, &QApplication::quit);
 }
 
