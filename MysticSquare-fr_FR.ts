@@ -147,6 +147,11 @@
         <comment>Saved games file type</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save game</source>
+        <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewGameDialog</name>

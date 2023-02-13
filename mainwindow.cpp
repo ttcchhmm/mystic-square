@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionQuit, &QAction::triggered, this, &QApplication::quit);
     connect(ui->actionNewGame, &QAction::triggered, this, &MainWindow::newGame);
     connect(ui->actionLoadGame, &QAction::triggered, this, &MainWindow::loadGame);
+    connect(ui->actionSaveGame, &QAction::triggered, this, &MainWindow::saveGame);
 }
 
 MainWindow::~MainWindow() {
@@ -51,5 +52,13 @@ void MainWindow::loadGame() {
         if(!filename.isEmpty()) {
             qDebug() << "Loading a game from:" << filename;;
         }
+    }
+}
+
+void MainWindow::saveGame() {
+    auto filename(QFileDialog::getSaveFileName(this, tr("Save game", "Window title"), QDir::homePath(), tr("Saved games (*.save)", "Saved games file type")));
+
+    if(!filename.isEmpty()) {
+        qDebug() << "Saving a game to:" << filename;;
     }
 }
