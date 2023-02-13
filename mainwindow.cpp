@@ -4,6 +4,7 @@
 #include "newgamedialog.hh"
 
 #include <QMessageBox>
+#include <QFileDialog>
 #include <QDebug>
 
 
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
     connect(ui->actionQuit, &QAction::triggered, this, &QApplication::quit);
     connect(ui->actionNewGame, &QAction::triggered, this, &MainWindow::newGame);
+    connect(ui->actionLoadGame, &QAction::triggered, this, &MainWindow::loadGame);
 }
 
 MainWindow::~MainWindow() {
@@ -37,5 +39,17 @@ void MainWindow::newGame() {
     if(d.result() == QDialog::Accepted) {
         qDebug() << "Starting a game with size:" << d.getValue();
         // TODO : Start game
+    }
+}
+
+void MainWindow::loadGame() {
+    auto result(QMessageBox::question(this, tr("Overwrite the current game ?", "Window title"), tr("Do you want to overwrite the current game and load a new one ?")));
+
+    if(result == QMessageBox::Yes) {
+        auto filename(QFileDialog::getOpenFileName(this, tr("Open game", "Window title"), QDir::homePath(), tr("Saved games (*.save)", "Saved games file type")));
+
+        if(!filename.isEmpty()) {
+            qDebug() << "Loading a game from:" << filename;;
+        }
     }
 }

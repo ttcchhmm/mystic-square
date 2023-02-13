@@ -128,6 +128,25 @@
         <source>Mystic Square, by Tom Chedmail. Made as an assignment for the Qt course.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Overwrite the current game ?</source>
+        <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to overwrite the current game and load a new one ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open game</source>
+        <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saved games (*.save)</source>
+        <comment>Saved games file type</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewGameDialog</name>
