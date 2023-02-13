@@ -1,7 +1,10 @@
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
 
+#include "newgamedialog.hh"
+
 #include <QMessageBox>
+#include <QDebug>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAboutApp, &QAction::triggered, this, &MainWindow::aboutApp);
     connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
     connect(ui->actionQuit, &QAction::triggered, this, &QApplication::quit);
+    connect(ui->actionNewGame, &QAction::triggered, this, &MainWindow::newGame);
 }
 
 MainWindow::~MainWindow() {
@@ -24,4 +28,14 @@ void MainWindow::aboutApp() {
 
 void MainWindow::aboutQt() {
     QMessageBox::aboutQt(this);
+}
+
+void MainWindow::newGame() {
+    NewGameDialog d;
+    d.exec();
+
+    if(d.result() == QDialog::Accepted) {
+        qDebug() << "Starting a game with size:" << d.getValue();
+        // TODO : Start game
+    }
 }

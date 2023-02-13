@@ -129,4 +129,15 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>NewGameDialog</name>
+    <message>
+        <source>Square size: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Game</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
