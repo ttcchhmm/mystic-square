@@ -194,6 +194,10 @@
    </property>
   </action>
   <action name="actionOriginalBackground">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/original-icon.svg</normaloff>:/assets/original-icon.svg</iconset>
+   </property>
    <property name="text">
     <string>Original</string>
    </property>
@@ -202,6 +206,10 @@
    </property>
   </action>
   <action name="actionForestBackground">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/forest-icon.svg</normaloff>:/assets/forest-icon.svg</iconset>
+   </property>
    <property name="text">
     <string>Forest</string>
    </property>
@@ -210,6 +218,10 @@
    </property>
   </action>
   <action name="actionTreeBackground">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/tree-icon.svg</normaloff>:/assets/tree-icon.svg</iconset>
+   </property>
    <property name="text">
     <string>Tree</string>
    </property>
@@ -218,6 +230,10 @@
    </property>
   </action>
   <action name="actionNetworkBackground">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/assets/network-icon.svg</normaloff>:/assets/network-icon.svg</iconset>
+   </property>
    <property name="text">
     <string>Network</string>
    </property>
@@ -258,7 +274,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>newGameBtn</sender>

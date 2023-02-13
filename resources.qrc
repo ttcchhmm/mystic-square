@@ -4,5 +4,9 @@
         <file>assets/icon.png</file>
         <file>assets/network.jpeg</file>
         <file>assets/tree.jpg</file>
+        <file>assets/forest-icon.svg</file>
+        <file>assets/network-icon.svg</file>
+        <file>assets/original-icon.svg</file>
+        <file>assets/tree-icon.svg</file>
     </qresource>
 </RCC>
