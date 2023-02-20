@@ -9,7 +9,7 @@
 
 
 MainWindow::MainWindow(QWidget *parent) :
-        QMainWindow(parent), ui(new Ui::MainWindow) {
+        QMainWindow(parent), ui(new Ui::MainWindow), _game(new Game(3, this)) {
     ui->setupUi(this);
 
     // -- Connects --
@@ -39,7 +39,7 @@ void MainWindow::newGame() {
 
     if(d.result() == QDialog::Accepted) {
         qDebug() << "Starting a game with size:" << d.getValue();
-        // TODO : Start game
+        _game->newGame(d.getValue());
     }
 }
 
@@ -50,7 +50,9 @@ void MainWindow::loadGame() {
         auto filename(QFileDialog::getOpenFileName(this, tr("Open game", "Window title"), QDir::homePath(), tr("Saved games (*.save)", "Saved games file type")));
 
         if(!filename.isEmpty()) {
-            qDebug() << "Loading a game from:" << filename;;
+            qDebug() << "Loading a game from:" << filename;
+            QFile f(filename);
+            _game->loadGame(f);
         }
     }
 }
@@ -59,6 +61,8 @@ void MainWindow::saveGame() {
     auto filename(QFileDialog::getSaveFileName(this, tr("Save game", "Window title"), QDir::homePath(), tr("Saved games (*.save)", "Saved games file type")));
 
     if(!filename.isEmpty()) {
-        qDebug() << "Saving a game to:" << filename;;
+        qDebug() << "Saving a game to:" << filename;
+        QFile f(filename);
+        _game->saveGame(f);
     }
 }
