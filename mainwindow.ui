@@ -68,7 +68,7 @@
          </size>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Moves: 0</string>
         </property>
        </widget>
       </item>
