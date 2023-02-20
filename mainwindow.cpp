@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionNewGame, &QAction::triggered, this, &MainWindow::newGame);
     connect(ui->actionLoadGame, &QAction::triggered, this, &MainWindow::loadGame);
     connect(ui->actionSaveGame, &QAction::triggered, this, &MainWindow::saveGame);
+    connect(_game, &Game::played, this, &MainWindow::handlePlay);
 }
 
 MainWindow::~MainWindow() {
@@ -65,4 +66,8 @@ void MainWindow::saveGame() {
         QFile f(filename);
         _game->saveGame(f);
     }
+}
+
+void MainWindow::handlePlay(unsigned int numberOfMoves) {
+    this->ui->moveCountLabel->setText(tr("Moves: %1", "Number of moves display").arg(numberOfMoves));
 }

@@ -20,10 +20,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -150,6 +146,15 @@
     <message>
         <source>Save game</source>
         <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves: 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves: %1</source>
+        <comment>Number of moves display</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
