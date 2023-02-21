@@ -19,7 +19,7 @@ set(TS_FILES MysticSquare-fr_FR.ts MysticSquare-en_US.ts)
 
 qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
-add_executable(MysticSquare ${QM_FILES} resources.qrc main.cpp mainwindow.cpp mainwindow.hh mainwindow.ui gamewidget.cpp gamewidget.hh newgamedialog.cpp newgamedialog.hh newgamedialog.ui Stub.hh Game.cpp Game.hh)
+add_executable(MysticSquare ${QM_FILES} resources.qrc main.cpp mainwindow.cpp mainwindow.hh mainwindow.ui gamewidget.cpp gamewidget.hh newgamedialog.cpp newgamedialog.hh newgamedialog.ui Stub.hh Game.cpp Game.hh BackgroundEnum.hh)
 target_link_libraries(MysticSquare
         Qt5::Core
         Qt5::Gui

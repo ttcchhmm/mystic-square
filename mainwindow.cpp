@@ -13,14 +13,32 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // -- Connects --
+    connect(ui->actionOriginalBackground, &QAction::triggered, this, [this]() {
+        emit backgroundUpdated(Background::NUMBERED);
+    });
+
+    connect(ui->actionForestBackground, &QAction::triggered, this, [this]() {
+        emit backgroundUpdated(Background::FOREST);
+    });
+
+    connect(ui->actionNetworkBackground, &QAction::triggered, this, [this]() {
+        emit backgroundUpdated(Background::NETWORK);
+    });
+
+    connect(ui->actionTreeBackground, &QAction::triggered, this, [this]() {
+        emit backgroundUpdated(Background::TREE);
+    });
+
     connect(ui->actionAboutApp, &QAction::triggered, this, &MainWindow::aboutApp);
     connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
     connect(ui->actionQuit, &QAction::triggered, this, &QApplication::quit);
     connect(ui->actionNewGame, &QAction::triggered, this, &MainWindow::newGame);
     connect(ui->actionLoadGame, &QAction::triggered, this, &MainWindow::loadGame);
     connect(ui->actionSaveGame, &QAction::triggered, this, &MainWindow::saveGame);
+    connect(this, &MainWindow::backgroundUpdated, ui->playArea, &GameWidget::changeBackground);
     connect(_game, &Game::played, this, &MainWindow::handlePlay);
     connect(_game, &Game::gameCreated, this, &MainWindow::handleNewGame);
+    connect(_game, &Game::gameCreated, ui->playArea, &GameWidget::changeSize);
 }
 
 MainWindow::~MainWindow() {

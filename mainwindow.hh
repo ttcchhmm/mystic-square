@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "Game.hh"
+#include "BackgroundEnum.hh"
 #include "Stub.hh"
 
 QT_BEGIN_NAMESPACE
@@ -67,6 +68,9 @@ public slots:
      * @param size The size of the new game.
      */
     void handleNewGame(int size);
+
+signals:
+    void backgroundUpdated(Background newBackground);
 
 private:
     /**
