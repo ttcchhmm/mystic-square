@@ -2,6 +2,7 @@
 #define MYSTICSQUARE_GAMEWIDGET_HH
 
 #include <QWidget>
+#include <QGridLayout>
 
 #include "BackgroundEnum.hh"
 
@@ -12,8 +13,20 @@ class GameWidget: public QWidget {
     Q_OBJECT
 
 private:
+    /**
+     * The current background.
+     */
     Background _bg;
+
+    /**
+     * The current size.
+     */
     int _size;
+
+    /**
+     * The layout of this widget.
+     */
+    QGridLayout *_layout;
 
 public:
     /**
@@ -23,8 +36,23 @@ public:
     explicit GameWidget(QWidget* parent = nullptr);
 
 public slots:
+    /**
+     * Change the current background.
+     * @param bg The background to change to.
+     */
     void changeBackground(Background bg);
+
+    /**
+     * Change the current size.
+     * @param size The new size.
+     */
     void changeSize(int size);
+
+private:
+    /**
+     * Redraw every tile.
+     */
+    void redrawTiles();
 };
 
 
