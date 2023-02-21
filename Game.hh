@@ -36,7 +36,7 @@ public slots:
      * Create a new game.
      * @param size The size of the new game.
      */
-    void newGame(const int & size) STUB;
+    void newGame(const int & size);
 
     /**
      * Load a saved game from a file.
@@ -56,6 +56,12 @@ signals:
      * @param numberOfMoves The new number of moves played.
      */
     void played(unsigned int numberOfMoves);
+
+    /**
+     * Emitted after a new game is created.
+     * @param size The size of the new game.
+     */
+    void gameCreated(int size);
 };
 
 
