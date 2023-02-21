@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "Game.hh"
+#include "Stub.hh"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -60,6 +61,12 @@ public slots:
      * @param numberOfMoves The number of moves played.
      */
     void handlePlay(unsigned int numberOfMoves);
+
+    /**
+     * Executed when a new game is started.
+     * @param size The size of the new game.
+     */
+    void handleNewGame(int size);
 
 private:
     /**
