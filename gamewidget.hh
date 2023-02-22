@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QPixmap>
 
 #include "BackgroundEnum.hh"
 
@@ -17,6 +18,11 @@ private:
      * The current background.
      */
     Background _bg;
+
+    /**
+     * The current picture.
+     */
+     QPixmap _pixmap;
 
     /**
      * The current size.
