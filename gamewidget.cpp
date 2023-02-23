@@ -50,6 +50,9 @@ void GameWidget::redrawTiles() {
     // The size of a single tile.
     const int tileSize(WIDGET_SIZE/_size);
 
+    // The height of a subsection inside the pixmap
+    int height(_pixmap.width() / _size);
+
     // The current number of tiles.
     unsigned int count(1);
 
@@ -64,7 +67,6 @@ void GameWidget::redrawTiles() {
                 label = new QLabel(this);
 
                 // Calculate the coordinates inside the pixmap
-                int height(_pixmap.width() / _size);
                 int pixX(height * x);
                 int pixY(height * y);
 
