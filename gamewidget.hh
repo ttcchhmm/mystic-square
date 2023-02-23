@@ -15,6 +15,11 @@ class GameWidget: public QWidget {
 
 private:
     /**
+     * The size of the widget.
+     */
+    const int WIDGET_SIZE = 600;
+
+    /**
      * The current background.
      */
     Background _bg;

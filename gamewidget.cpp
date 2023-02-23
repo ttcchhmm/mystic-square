@@ -10,6 +10,9 @@ GameWidget::GameWidget(QWidget *parent):
     _layout(new QGridLayout(this)){
 
     this->setLayout(_layout);
+
+    setFixedSize(WIDGET_SIZE, WIDGET_SIZE);
+
     redrawTiles();
 }
 
@@ -44,22 +47,43 @@ void GameWidget::redrawTiles() {
         w->deleteLater();
     }
 
+    // The size of a single tile.
+    const int tileSize(WIDGET_SIZE/_size);
+
+    // The current number of tiles.
     unsigned int count(1);
+
     for(int x(0); x < _size; x++) {
         for(int y(0); y < _size; y++) {
             QLabel *label(nullptr);
 
-            if(_bg == Background::NUMBERED) {
+            if(_bg == Background::NUMBERED) { // Without a picture
                 label = new QLabel(QString::number(count), this);
                 count++;
-            } else {
+            } else { // Using a picture
                 label = new QLabel(this);
 
+                // Calculate the coordinates inside the pixmap
                 int height(_pixmap.width() / _size);
                 int pixX(height * x);
                 int pixY(height * y);
 
-                label->setPixmap(_pixmap.copy(pixY, pixX, height, height));
+                // Set the tile's picture
+                label->setPixmap(
+                        _pixmap.copy(
+                                pixY,
+                                pixX,
+                                height, height
+                                )
+
+                                // Scale it to an acceptable size
+                                .scaled(
+                                        tileSize,
+                                        tileSize,
+                                        Qt::AspectRatioMode::IgnoreAspectRatio,
+                                        Qt::TransformationMode::SmoothTransformation
+                                )
+                        );
             }
 
             _layout->addWidget(label, x, y);
