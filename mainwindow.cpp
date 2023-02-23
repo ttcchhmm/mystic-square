@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::backgroundUpdated, ui->playArea, &GameWidget::changeBackground);
     connect(_game, &Game::played, this, &MainWindow::handlePlay);
     connect(_game, &Game::gameCreated, this, &MainWindow::handleNewGame);
-    connect(_game, &Game::gameCreated, ui->playArea, &GameWidget::changeSize);
+    connect(_game, &Game::gameCreated, ui->playArea, &GameWidget::handleNewGame);
 }
 
 MainWindow::~MainWindow() {
@@ -91,6 +91,6 @@ void MainWindow::handlePlay(unsigned int numberOfMoves) {
     this->ui->moveCountLabel->setText(tr("Moves: %1", "Number of moves display").arg(numberOfMoves));
 }
 
-void MainWindow::handleNewGame(int size) {
+void MainWindow::handleNewGame(Game::PlayField & playField) {
     this->ui->moveCountLabel->setText(tr("Moves: %1", "Number of moves display").arg(0));
 }

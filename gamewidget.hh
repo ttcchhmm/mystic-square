@@ -6,6 +6,7 @@
 #include <QPixmap>
 
 #include "BackgroundEnum.hh"
+#include "Game.hh"
 
 /**
  * The widget displaying the current state of the game.
@@ -58,6 +59,12 @@ public slots:
      * @param size The new size.
      */
     void changeSize(int size);
+
+    /**
+     * Handle a new game.
+     * @param playField The new play field.
+     */
+    void handleNewGame(Game::PlayField & playField);
 
 private:
     /**

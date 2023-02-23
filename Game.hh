@@ -2,6 +2,7 @@
 #define MYSTICSQUARE_GAME_HH
 
 #include <QObject>
+#include <QVector>
 #include <QFile>
 
 #include "Stub.hh"
@@ -11,6 +12,12 @@
  */
 class Game: public QObject {
     Q_OBJECT
+
+public:
+    /**
+     * Defines a 2D array containing the play area.
+     */
+    using PlayField = QVector<QVector<int>>;
 
 private:
     /**
@@ -22,6 +29,11 @@ private:
      * The number of moves played.
      */
     unsigned int _numberOfMoves;
+
+    /**
+     * The current state of the play field.
+     */
+     PlayField _playField;
 
 public:
     /**
@@ -59,9 +71,9 @@ signals:
 
     /**
      * Emitted after a new game is created.
-     * @param size The size of the new game.
+     * @param playField The new play area.
      */
-    void gameCreated(int size);
+    void gameCreated(PlayField & playField);
 };
 
 

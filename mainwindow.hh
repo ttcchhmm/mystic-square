@@ -65,9 +65,9 @@ public slots:
 
     /**
      * Executed when a new game is started.
-     * @param size The size of the new game.
+     * @param playField The new play field.
      */
-    void handleNewGame(int size);
+    void handleNewGame(Game::PlayField & playField);
 
 signals:
     void backgroundUpdated(Background newBackground);

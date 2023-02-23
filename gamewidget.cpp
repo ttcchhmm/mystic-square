@@ -42,6 +42,10 @@ void GameWidget::changeSize(int size) {
     redrawTiles();
 }
 
+void GameWidget::handleNewGame(Game::PlayField &playField) {
+    changeSize(playField.size());
+}
+
 void GameWidget::redrawTiles() {
     for(auto w : this->findChildren<QWidget*>()) {
         w->deleteLater();
