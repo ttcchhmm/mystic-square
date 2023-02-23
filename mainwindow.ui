@@ -132,7 +132,6 @@
    <addaction name="menuBackground"/>
    <addaction name="menuAbout"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNewGame">
    <property name="icon">
     <iconset theme="document-new-symbolic">
