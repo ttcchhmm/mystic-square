@@ -15,8 +15,9 @@ GameWidget::GameWidget(QWidget *parent):
     _layout(new QGridLayout(this)){
 
     this->setLayout(_layout);
-
     setFixedSize(WIDGET_SIZE, WIDGET_SIZE);
+
+    connect(_game.data(), &Game::gameCreated, this, &GameWidget::handleNewGame);
 
     redrawTiles();
 }

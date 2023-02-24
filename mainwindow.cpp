@@ -38,7 +38,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::backgroundUpdated, ui->playArea, &GameWidget::changeBackground);
     connect(_game.data(), &Game::played, this, &MainWindow::handlePlay);
     connect(_game.data(), &Game::gameCreated, this, &MainWindow::handleNewGame);
-    connect(_game.data(), &Game::gameCreated, ui->playArea, &GameWidget::handleNewGame);
 }
 
 MainWindow::~MainWindow() {
