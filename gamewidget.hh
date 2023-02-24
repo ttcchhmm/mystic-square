@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QPixmap>
+#include <QSharedPointer>
 
 #include "BackgroundEnum.hh"
 #include "Game.hh"
@@ -36,6 +37,11 @@ private:
     int _size;
 
     /**
+     * A shared pointer to a Game instance, which handle game logic.
+     */
+    QSharedPointer<Game> _game;
+
+    /**
      * The layout of this widget.
      */
     QGridLayout *_layout;
@@ -43,9 +49,9 @@ private:
 public:
     /**
      * Create a new GameWidget.
-     * @param parent The parent of the newly created GameWidget.
+     * @param parent The parent of the newly created GameWidget. Its parent should be an instance of MainWindow.
      */
-    explicit GameWidget(QWidget* parent = nullptr);
+    explicit GameWidget(QWidget* parent);
 
 public slots:
     /**

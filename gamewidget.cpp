@@ -2,11 +2,16 @@
 
 #include <QLabel>
 
+#include "mainwindow.hh"
+
 GameWidget::GameWidget(QWidget *parent):
     QWidget(parent),
     _bg(Background::NUMBERED),
     _pixmap(0, 0),
     _size(3),
+    /* The parent is the central widget of the main window, but we want the main window instance.
+       Ugly, but we can't add more parameters to a constructor used as a promoted widget in Designer. */
+    _game(dynamic_cast<MainWindow*>(parent->parentWidget())->getGame()),
     _layout(new QGridLayout(this)){
 
     this->setLayout(_layout);
