@@ -1,6 +1,7 @@
 #include "gamewidget.hh"
 
 #include <QLabel>
+#include <QPainter>
 
 #include "mainwindow.hh"
 
@@ -68,14 +69,20 @@ void GameWidget::redrawTiles() {
 
     for(int x(0); x < _size; x++) {
         for(int y(0); y < _size; y++) {
-            QLabel *label(nullptr);
+            auto *label(new QLabel(this));
 
             if(_bg == Background::NUMBERED) { // Without a picture
-                label = new QLabel(QString::number(count), this);
+                QPixmap content(tileSize, tileSize);
+                content.fill(palette().color(QPalette::Highlight)); // System highlight color
+
+                QPainter painter(&content);
+                painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
+                painter.drawText(QRectF(0, 0, tileSize, tileSize), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(count));
+
+                label->setPixmap(content);
+
                 count++;
             } else { // Using a picture
-                label = new QLabel(this);
-
                 // Calculate the coordinates inside the pixmap
                 int pixX(height * x);
                 int pixY(height * y);
