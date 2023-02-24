@@ -64,45 +64,42 @@ void GameWidget::redrawTiles() {
     // The height of a subsection inside the pixmap
     int height(_pixmap.width() / _size);
 
-    // The current number of tiles.
-    unsigned int count(1);
-
     for(int x(0); x < _size; x++) {
         for(int y(0); y < _size; y++) {
             auto *label(new QLabel(this));
 
-            if(_bg == Background::NUMBERED) { // Without a picture
-                QPixmap content(tileSize, tileSize);
-                content.fill(palette().color(QPalette::Highlight)); // System highlight color
+            if(_game->getPlayField()[x][y] != -1) {
+                if(_bg == Background::NUMBERED) { // Without a picture
+                    QPixmap content(tileSize, tileSize);
+                    content.fill(palette().color(QPalette::Highlight)); // System highlight color
 
-                QPainter painter(&content);
-                painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
-                painter.drawText(QRectF(0, 0, tileSize, tileSize), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(count));
+                    QPainter painter(&content);
+                    painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
+                    painter.drawText(QRectF(0, 0, tileSize, tileSize), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(_game->getPlayField()[x][y]));
 
-                label->setPixmap(content);
+                    label->setPixmap(content);
+                } else { // Using a picture
+                    // Calculate the coordinates inside the pixmap
+                    int pixX(height * x);
+                    int pixY(height * y);
 
-                count++;
-            } else { // Using a picture
-                // Calculate the coordinates inside the pixmap
-                int pixX(height * x);
-                int pixY(height * y);
+                    // Set the tile's picture
+                    label->setPixmap(
+                            _pixmap.copy(
+                                    pixY,
+                                    pixX,
+                                    height, height
+                                    )
 
-                // Set the tile's picture
-                label->setPixmap(
-                        _pixmap.copy(
-                                pixY,
-                                pixX,
-                                height, height
-                                )
-
-                                // Scale it to an acceptable size
-                                .scaled(
-                                        tileSize,
-                                        tileSize,
-                                        Qt::AspectRatioMode::IgnoreAspectRatio,
-                                        Qt::TransformationMode::SmoothTransformation
-                                )
-                        );
+                                    // Scale it to an acceptable size
+                                    .scaled(
+                                            tileSize,
+                                            tileSize,
+                                            Qt::AspectRatioMode::IgnoreAspectRatio,
+                                            Qt::TransformationMode::SmoothTransformation
+                                    )
+                            );
+                }
             }
 
             _layout->addWidget(label, x, y);
