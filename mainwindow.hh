@@ -2,6 +2,7 @@
 #define MYSTICSQUARE_MAINWINDOW_HH
 
 #include <QMainWindow>
+#include <QSharedPointer>
 
 #include "Game.hh"
 #include "BackgroundEnum.hh"
@@ -20,7 +21,10 @@ class MainWindow : public QMainWindow {
 Q_OBJECT
 
 private:
-    Game *_game;
+    /**
+     * A shared pointer to a Game instance, which handle game logic.
+     */
+    QSharedPointer<Game> _game;
 
 public:
     /**
