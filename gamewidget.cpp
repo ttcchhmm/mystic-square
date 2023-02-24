@@ -54,6 +54,7 @@ void GameWidget::handleNewGame(Game::PlayField &playField) {
 }
 
 void GameWidget::redrawTiles() {
+    // Clear the grid.
     for(auto w : this->findChildren<QWidget*>()) {
         w->deleteLater();
     }
