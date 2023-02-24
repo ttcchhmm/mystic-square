@@ -33,6 +33,12 @@ public:
      */
     explicit MainWindow(QWidget *parent = nullptr);
 
+    /**
+     * Get the current Game instance.
+     * @return A shared pointer to the Game instance.
+     */
+    [[nodiscard]] const QSharedPointer<Game> &getGame() const;
+
     ~MainWindow() override;
 
 public slots:
