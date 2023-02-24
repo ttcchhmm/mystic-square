@@ -58,3 +58,7 @@ void Game::newGame(const int &size) {
 
     emit gameCreated(_playField);
 }
+
+const Game::PlayField &Game::getPlayField() const {
+    return _playField;
+}

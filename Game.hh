@@ -43,6 +43,12 @@ public:
      */
     explicit Game(const int & size = 3, QObject* parent = nullptr);
 
+    /**
+     * Get the current play field.
+     * @return The current play field.
+     */
+    [[nodiscard]] const PlayField &getPlayField() const;
+
 public slots:
     /**
      * Create a new game.
