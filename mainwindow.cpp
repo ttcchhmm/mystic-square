@@ -9,7 +9,7 @@
 
 
 MainWindow::MainWindow(QWidget *parent) :
-        QMainWindow(parent), ui(new Ui::MainWindow), _game(QSharedPointer<Game>::create(3, this)) {
+        QMainWindow(parent), ui(new Ui::MainWindow), _game(QSharedPointer<Game>::create(3)) {
     ui->setupUi(this);
 
     // -- Connects --
