@@ -68,6 +68,7 @@ void GameWidget::redrawTiles() {
     for(int x(0); x < _size; x++) {
         for(int y(0); y < _size; y++) {
             auto *label(new QLabel(this));
+            auto val(_game->getPlayField()[x][y]);
 
             if(_game->getPlayField()[x][y] != -1) {
                 if(_bg == Background::NUMBERED) { // Without a picture
@@ -76,13 +77,13 @@ void GameWidget::redrawTiles() {
 
                     QPainter painter(&content);
                     painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
-                    painter.drawText(QRectF(0, 0, tileSize, tileSize), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(_game->getPlayField()[x][y]));
+                    painter.drawText(QRectF(0, 0, tileSize, tileSize), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(val + 1));
 
                     label->setPixmap(content);
                 } else { // Using a picture
                     // Calculate the coordinates inside the pixmap
-                    int pixX(height * x);
-                    int pixY(height * y);
+                    int pixX(height * (val - val/_size));
+                    int pixY(height * (val/_size));
 
                     // Set the tile's picture
                     label->setPixmap(
