@@ -22,6 +22,11 @@ private:
     const int TILE_SIZE = 100;
 
     /**
+     * The spacing between tiles.
+     */
+    const int SPACING = 5;
+
+    /**
      * The current background.
      */
     Background _bg;

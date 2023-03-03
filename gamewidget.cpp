@@ -15,6 +15,7 @@ GameWidget::GameWidget(QWidget *parent):
     _game(dynamic_cast<MainWindow*>(parent->parentWidget())->getGame()),
     _layout(new QGridLayout(this)){
 
+    _layout->setSpacing(SPACING);
     this->setLayout(_layout);
 
     connect(_game.data(), &Game::gameCreated, this, &GameWidget::handleNewGame);
@@ -58,12 +59,17 @@ void GameWidget::redrawTiles() {
         w->deleteLater();
     }
 
+    auto widgetSize((TILE_SIZE + SPACING) * _size);
+    setFixedSize(widgetSize, widgetSize);
+
     // The height of a subsection inside the pixmap
     int height(_pixmap.width() / _size);
 
     for(int x(0); x < _size; x++) {
         for(int y(0); y < _size; y++) {
             auto *label(new QLabel(this));
+            label->setFixedSize(TILE_SIZE, TILE_SIZE);
+
             auto val(_game->getPlayField()[x][y]);
 
             if(_game->getPlayField()[x][y] != -1) {
