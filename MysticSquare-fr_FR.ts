@@ -176,5 +176,14 @@
         <comment>Application display name</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An implementation of the &quot;Mystic Square&quot; game.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable rigged mode. This makes all generated games to not be random.</source>
+        <comment>Help option</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
