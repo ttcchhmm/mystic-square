@@ -1,6 +1,5 @@
 #include "gamewidget.hh"
 
-#include <QLabel>
 #include <QPainter>
 
 #include "mainwindow.hh"
@@ -63,17 +62,16 @@ void GameWidget::redrawTiles() {
     setFixedSize(widgetSize, widgetSize);
 
     // The height of a subsection inside the pixmap
-    int height(_pixmap.width() / _size);
+    int height(_pixmap.height() / _size);
 
-    for(int x(0); x < _size; x++) {
-        for(int y(0); y < _size; y++) {
-            auto *label(new QLabel(this));
-            label->setFixedSize(TILE_SIZE, TILE_SIZE);
+    if(_bg == Background::NUMBERED) { // Without a picture
+        for(int x(0); x < _size; x++) {
+            for(int y(0); y < _size; y++) {
+                auto label(getTileLabel());
 
-            auto val(_game->getPlayField()[x][y]);
+                auto val(_game->getPlayField()[x][y]);
 
-            if(_game->getPlayField()[x][y] != -1) {
-                if(_bg == Background::NUMBERED) { // Without a picture
+                if(val != -1) {
                     QPixmap content(TILE_SIZE, TILE_SIZE);
                     content.fill(palette().color(QPalette::Highlight)); // System highlight color
 
@@ -82,31 +80,49 @@ void GameWidget::redrawTiles() {
                     painter.drawText(QRectF(0, 0, TILE_SIZE, TILE_SIZE), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(val + 1));
 
                     label->setPixmap(content);
-                } else { // Using a picture
-                    // Calculate the coordinates inside the pixmap
-                    int pixX(height * (val - val/_size));
-                    int pixY(height * (val/_size));
-
-                    // Set the tile's picture
-                    label->setPixmap(
-                            _pixmap.copy(
-                                    pixY,
-                                    pixX,
-                                    height, height
-                                    )
-
-                                    // Scale it to an acceptable size
-                                    .scaled(
-                                            TILE_SIZE,
-                                            TILE_SIZE,
-                                            Qt::AspectRatioMode::IgnoreAspectRatio,
-                                            Qt::TransformationMode::SmoothTransformation
-                                    )
-                            );
                 }
-            }
 
-            _layout->addWidget(label, x, y);
+                _layout->addWidget(label, x, y);
+            }
+        }
+    } else { // With a picture
+        // Generate tiles
+        QVector<QPixmap> _tiles(_size * _size);
+
+        for(int x(0); x < _size; x++) {
+            for(int y(0); y < _size; y++) {
+                _tiles[x + _size * y] = _pixmap.copy( // Extract from the current picture.
+                        height * x,
+                        height * y,
+                        height,
+                        height)
+                .scaled( // Scale it to an acceptable size.
+                        TILE_SIZE,
+                        TILE_SIZE,
+                        Qt::AspectRatioMode::IgnoreAspectRatio, // We don't care about this, we're resizing a square to a square.
+                        Qt::TransformationMode::SmoothTransformation); // Better picture quality.
+            }
+        }
+
+        // Set tiles
+        for(int x(0); x < _size; x++) {
+            for(int y(0); y < _size; y++) {
+                auto val(_game->getPlayField()[x][y]);
+                auto label(getTileLabel());
+
+                if(val != -1) {
+                    label->setPixmap(_tiles[x + _size * y]);
+                }
+
+                _layout->addWidget(label, x, y);
+            }
         }
     }
+}
+
+QLabel *GameWidget::getTileLabel() {
+    auto *label(new QLabel(this));
+    label->setFixedSize(TILE_SIZE, TILE_SIZE);
+
+    return label;
 }

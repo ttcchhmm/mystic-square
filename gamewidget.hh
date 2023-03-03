@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QPixmap>
 #include <QSharedPointer>
+#include <QLabel>
 
 #include "BackgroundEnum.hh"
 #include "Game.hh"
@@ -82,6 +83,12 @@ private:
      * Redraw every tile.
      */
     void redrawTiles();
+
+    /**
+     * Get a new QLabel created to be used as a tile.
+     * @return A new QLabel created to be used as a tile.
+     */
+    QLabel* getTileLabel();
 };
 
 
