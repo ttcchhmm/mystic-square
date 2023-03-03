@@ -169,4 +169,12 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>QApplication</name>
+    <message>
+        <source>Mystic Square</source>
+        <comment>Application display name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

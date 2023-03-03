@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <QTranslator>
-#include <QDebug>
+#include <QCommandLineParser>
 
 #include "mainwindow.hh"
 
