@@ -3,6 +3,8 @@
 #include <QRandomGenerator>
 #include <QDebug>
 
+bool Game::_riggedMode(false);
+
 Game::Game(const int &size, QObject* parent): QObject(parent), _size(size), _numberOfMoves(0), _playField(0) {
     newGame(_size);
 }
@@ -29,16 +31,24 @@ void Game::newGame(const int &size) {
         }
     }
 
-    // While there is IDs to place.
-    while(!toPlace.empty()) {
-        // Generate a random X/Y pair to find a free spot.
-        int x, y;
-        do {
-            x = QRandomGenerator::global()->bounded(_size);
-            y = QRandomGenerator::global()->bounded(_size);
-        } while(_playField[x][y] != -1);
+    if(_riggedMode) { // In rigged mode, don't use a random order.
+        for(int x(0); x < _size; x++) {
+            for(int y(0); y < _size; y++) {
+                _playField[x][y] = toPlace.takeFirst();
+            }
+        }
+    } else { // Normal mode.
+        // While there is IDs to place.
+        while(!toPlace.empty()) {
+            // Generate a random X/Y pair to find a free spot.
+            int x, y;
+            do {
+                x = QRandomGenerator::global()->bounded(_size);
+                y = QRandomGenerator::global()->bounded(_size);
+            } while(_playField[x][y] != -1);
 
-        _playField[x][y] = toPlace.takeFirst(); // Dequeue the first element.
+            _playField[x][y] = toPlace.takeFirst(); // Dequeue the first element.
+        }
     }
 
     // Place a random free tile.
@@ -61,4 +71,9 @@ void Game::newGame(const int &size) {
 
 const Game::PlayField &Game::getPlayField() const {
     return _playField;
+}
+
+void Game::enableRiggedMode() {
+    _riggedMode = true;
+    qDebug() << "Rigged mode enabled.";
 }

@@ -20,6 +20,8 @@ public:
     using PlayField = QVector<QVector<int>>;
 
 private:
+    static bool _riggedMode;
+
     /**
      * The size of the game area.
      */
@@ -48,6 +50,13 @@ public:
      * @return The current play field.
      */
     [[nodiscard]] const PlayField &getPlayField() const;
+
+    /**
+     * Enable the rigged mode.
+     *
+     * In this mode, a simple puzzle will always be generated. Used for testing.
+     */
+    static void enableRiggedMode();
 
 public slots:
     /**
