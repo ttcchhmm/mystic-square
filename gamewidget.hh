@@ -17,9 +17,9 @@ class GameWidget: public QWidget {
 
 private:
     /**
-     * The size of the widget.
+     * The size of a single tile.
      */
-    const int WIDGET_SIZE = 600;
+    const int TILE_SIZE = 100;
 
     /**
      * The current background.

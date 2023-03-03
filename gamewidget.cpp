@@ -16,7 +16,6 @@ GameWidget::GameWidget(QWidget *parent):
     _layout(new QGridLayout(this)){
 
     this->setLayout(_layout);
-    setFixedSize(WIDGET_SIZE, WIDGET_SIZE);
 
     connect(_game.data(), &Game::gameCreated, this, &GameWidget::handleNewGame);
 
@@ -59,9 +58,6 @@ void GameWidget::redrawTiles() {
         w->deleteLater();
     }
 
-    // The size of a single tile.
-    const int tileSize(WIDGET_SIZE/_size);
-
     // The height of a subsection inside the pixmap
     int height(_pixmap.width() / _size);
 
@@ -72,12 +68,12 @@ void GameWidget::redrawTiles() {
 
             if(_game->getPlayField()[x][y] != -1) {
                 if(_bg == Background::NUMBERED) { // Without a picture
-                    QPixmap content(tileSize, tileSize);
+                    QPixmap content(TILE_SIZE, TILE_SIZE);
                     content.fill(palette().color(QPalette::Highlight)); // System highlight color
 
                     QPainter painter(&content);
                     painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
-                    painter.drawText(QRectF(0, 0, tileSize, tileSize), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(val + 1));
+                    painter.drawText(QRectF(0, 0, TILE_SIZE, TILE_SIZE), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(val + 1));
 
                     label->setPixmap(content);
                 } else { // Using a picture
@@ -95,8 +91,8 @@ void GameWidget::redrawTiles() {
 
                                     // Scale it to an acceptable size
                                     .scaled(
-                                            tileSize,
-                                            tileSize,
+                                            TILE_SIZE,
+                                            TILE_SIZE,
                                             Qt::AspectRatioMode::IgnoreAspectRatio,
                                             Qt::TransformationMode::SmoothTransformation
                                     )
