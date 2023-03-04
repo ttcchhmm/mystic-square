@@ -91,7 +91,7 @@ void GameWidget::redrawTiles() {
 
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
-                _tiles[y + _size * x] = _pixmap.copy( // Extract from the current picture.
+                _tiles[x + _size * y] = _pixmap.copy( // Extract from the current picture.
                         height * x,
                         height * y,
                         height,
@@ -111,7 +111,7 @@ void GameWidget::redrawTiles() {
                 auto label(getTileLabel());
 
                 if(val != -1) {
-                    label->setPixmap(_tiles[x + _size * y]);
+                    label->setPixmap(_tiles[val]);
                 }
 
                 _layout->addWidget(label, x, y);
