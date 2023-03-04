@@ -67,9 +67,8 @@ void GameWidget::redrawTiles() {
     if(_bg == Background::NUMBERED) { // Without a picture
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
-                auto btn(getTileLabel());
-
                 auto val(_game->getPlayField()[x][y]);
+                auto btn(getTileLabel(val));
 
                 if(val != -1) {
                     QPixmap content(TILE_SIZE, TILE_SIZE);
@@ -110,7 +109,7 @@ void GameWidget::redrawTiles() {
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
                 auto val(_game->getPlayField()[x][y]);
-                auto btn(getTileLabel());
+                auto btn(getTileLabel(val));
 
                 if(val != -1) {
                     btn->setIcon(_tiles[val]);
@@ -124,11 +123,18 @@ void GameWidget::redrawTiles() {
     }
 }
 
-QPushButton *GameWidget::getTileLabel() {
+QPushButton *GameWidget::getTileLabel(int val) {
     auto btn(new QPushButton(this));
     btn->setFixedSize(TILE_SIZE, TILE_SIZE);
     btn->setIconSize(QSize(TILE_SIZE, TILE_SIZE));
     btn->setFlat(true);
+
+    // Trigger a change only on a non-empty space.
+    if(val != -1) {
+        connect(btn, &QPushButton::clicked, this, [this, val]() {
+           _game->move(val);
+        });
+    }
 
     return btn;
 }

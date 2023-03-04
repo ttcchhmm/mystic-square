@@ -86,9 +86,10 @@ private:
 
     /**
      * Get a new QPushButton created to be used as a tile.
+     * @param val The value of the tile.
      * @return A new QPushButton created to be used as a tile.
      */
-    QPushButton* getTileLabel();
+    QPushButton* getTileLabel(int val);
 };
 
 
