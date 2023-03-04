@@ -20,6 +20,9 @@ public:
     using PlayField = QVector<QVector<int>>;
 
 private:
+    /**
+     * True when rigged mode is enabled, false in normal mode.
+     */
     static bool _riggedMode;
 
     /**
