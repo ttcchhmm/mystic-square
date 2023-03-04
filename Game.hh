@@ -79,7 +79,7 @@ public slots:
 
 signals:
     /**
-     * Emitted after the played made a move.
+     * Emitted after the player made a move.
      * @param numberOfMoves The new number of moves played.
      */
     void played(unsigned int numberOfMoves);
