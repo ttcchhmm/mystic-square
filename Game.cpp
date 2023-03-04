@@ -58,7 +58,7 @@ void Game::newGame(const int &size) {
 
     // Print the play field to the console.
     for(auto const & x : _playField) {
-        QString line(QLatin1String(""));
+        QString line;
         for(auto const & y : x) {
             line += QString::number(y) + " / ";
         }
