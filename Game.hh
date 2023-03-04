@@ -80,6 +80,12 @@ public slots:
      */
     void saveGame(QFile & file) STUB;
 
+    /**
+     * Move the specified tile to the empty space next to it.
+     * @param tile The tile's ID.
+     */
+    void move(int tile) STUB;
+
 signals:
     /**
      * Emitted after the player made a move.
