@@ -69,6 +69,48 @@ void Game::newGame(const int &size) {
     emit gameCreated(_playField);
 }
 
+void Game::move(int tile) {
+    // Search for the coordinates of the tile.
+    int x(-1), y(-1);
+
+    for(int lx(0); lx < _size; lx++) {
+        for(int ly(0); ly < _size; ly++) {
+            if(_playField[lx][ly] == tile) {
+                x = lx;
+                y = ly;
+
+                break;
+            }
+        }
+    }
+
+    // If the tile is invalid.
+    if(x == -1 || y == -1) {
+        throw std::logic_error("Invalid tile value; coordinates not found.");
+    }
+
+    // Swap with the empty tile, if possible.
+    for(auto delta : { Delta(-1, 0), Delta(1, 0), Delta(0, -1), Delta(0, 1) }) {
+        auto emptyX(x + delta.first);
+        auto emptyY(y + delta.second);
+
+        // Out-of-bound check + empty tile found.
+        if(emptyX >= 0 &&
+           emptyY >= 0 &&
+           emptyX < _size &&
+           emptyY < _size &&
+           _playField[emptyX][emptyY] == -1) {
+
+            // Swap with the empty tile.
+            _playField[emptyX][emptyY] = _playField[x][y];
+            _playField[x][y] = -1;
+            _numberOfMoves++;
+
+            emit played(_numberOfMoves);
+        }
+    }
+}
+
 const Game::PlayField &Game::getPlayField() const {
     return _playField;
 }

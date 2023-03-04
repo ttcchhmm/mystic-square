@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include <QFile>
+#include <QPair>
 
 #include "Stub.hh"
 
@@ -20,6 +21,11 @@ public:
     using PlayField = QVector<QVector<int>>;
 
 private:
+    /**
+     * Defines a delta on two axis.
+     */
+    using Delta = QPair<int, int>;
+
     /**
      * True when rigged mode is enabled, false in normal mode.
      */
@@ -81,10 +87,10 @@ public slots:
     void saveGame(QFile & file) STUB;
 
     /**
-     * Move the specified tile to the empty space next to it.
+     * Move the specified tile to the empty space next to it if possible.
      * @param tile The tile's ID.
      */
-    void move(int tile) STUB;
+    void move(int tile);
 
 signals:
     /**
