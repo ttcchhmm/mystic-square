@@ -67,7 +67,7 @@ void GameWidget::redrawTiles() {
     if(_bg == Background::NUMBERED) { // Without a picture
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
-                auto label(getTileLabel());
+                auto btn(getTileLabel());
 
                 auto val(_game->getPlayField()[x][y]);
 
@@ -79,10 +79,12 @@ void GameWidget::redrawTiles() {
                     painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
                     painter.drawText(QRectF(0, 0, TILE_SIZE, TILE_SIZE), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(val + 1));
 
-                    label->setPixmap(content);
+                    btn->setIcon(content);
+                } else {
+                    btn->setEnabled(false);
                 }
 
-                _layout->addWidget(label, x, y);
+                _layout->addWidget(btn, x, y);
             }
         }
     } else { // With a picture
@@ -108,21 +110,25 @@ void GameWidget::redrawTiles() {
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
                 auto val(_game->getPlayField()[x][y]);
-                auto label(getTileLabel());
+                auto btn(getTileLabel());
 
                 if(val != -1) {
-                    label->setPixmap(_tiles[val]);
+                    btn->setIcon(_tiles[val]);
+                } else {
+                    btn->setEnabled(false);
                 }
 
-                _layout->addWidget(label, x, y);
+                _layout->addWidget(btn, x, y);
             }
         }
     }
 }
 
-QLabel *GameWidget::getTileLabel() {
-    auto *label(new QLabel(this));
-    label->setFixedSize(TILE_SIZE, TILE_SIZE);
+QPushButton *GameWidget::getTileLabel() {
+    auto btn(new QPushButton(this));
+    btn->setFixedSize(TILE_SIZE, TILE_SIZE);
+    btn->setIconSize(QSize(TILE_SIZE, TILE_SIZE));
+    btn->setFlat(true);
 
-    return label;
+    return btn;
 }

@@ -5,7 +5,7 @@
 #include <QGridLayout>
 #include <QPixmap>
 #include <QSharedPointer>
-#include <QLabel>
+#include <QPushButton>
 
 #include "BackgroundEnum.hh"
 #include "Game.hh"
@@ -85,10 +85,10 @@ private:
     void redrawTiles();
 
     /**
-     * Get a new QLabel created to be used as a tile.
-     * @return A new QLabel created to be used as a tile.
+     * Get a new QPushButton created to be used as a tile.
+     * @return A new QPushButton created to be used as a tile.
      */
-    QLabel* getTileLabel();
+    QPushButton* getTileLabel();
 };
 
 
