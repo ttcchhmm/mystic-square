@@ -91,7 +91,7 @@ void GameWidget::redrawTiles() {
 
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
-                _tiles[x + _size * y] = _pixmap.copy( // Extract from the current picture.
+                _tiles[y + _size * x] = _pixmap.copy( // Extract from the current picture.
                         height * x,
                         height * y,
                         height,
