@@ -78,12 +78,12 @@ public slots:
      */
     void handleNewGame(Game::PlayField & playField);
 
-private:
     /**
      * Redraw every tile.
      */
     void redrawTiles();
 
+private:
     /**
      * Get a new QPushButton created to be used as a tile.
      * @param val The value of the tile.

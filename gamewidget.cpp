@@ -18,6 +18,7 @@ GameWidget::GameWidget(QWidget *parent):
     this->setLayout(_layout);
 
     connect(_game.data(), &Game::gameCreated, this, &GameWidget::handleNewGame);
+    connect(_game.data(), &Game::played, this, &GameWidget::redrawTiles);
 
     redrawTiles();
 }
