@@ -211,6 +211,10 @@ const Game::PlayField &Game::getPlayField() const {
     return _playField;
 }
 
+const unsigned int &Game::getNumberOfMoves() const {
+    return _numberOfMoves;
+}
+
 void Game::enableRiggedMode() {
     _riggedMode = true;
     qDebug() << "Rigged mode enabled.";

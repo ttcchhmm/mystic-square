@@ -66,6 +66,12 @@ public:
     [[nodiscard]] const PlayField &getPlayField() const;
 
     /**
+     * Get the number of moves played by the user.
+     * @return The number of moves.
+     */
+    [[nodiscard]] const unsigned int &getNumberOfMoves() const;
+
+    /**
      * Enable the rigged mode.
      *
      * In this mode, a simple puzzle will always be generated. Used for testing.
