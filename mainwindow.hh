@@ -68,6 +68,12 @@ public slots:
     void saveGame();
 
     /**
+     * Show the "Load failed" dialog.
+     * @param file The file concerned by this failure.
+     */
+    void loadFailure(QFile & file);
+
+    /**
      * Executed when the player makes a move.
      * @param numberOfMoves The number of moves played.
      */

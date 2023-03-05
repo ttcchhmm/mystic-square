@@ -157,6 +157,15 @@
         <comment>Number of moves display</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Loading failure</source>
+        <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load the game saved to: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewGameDialog</name>
