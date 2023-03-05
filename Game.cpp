@@ -60,7 +60,7 @@ void Game::newGame(const int &size) {
     emit gameCreated(_playField, 0);
 }
 
-Game::PlayField Game::initEmptyPlayField(int size) const {
+Game::PlayField Game::initEmptyPlayField(int size) {
     PlayField field(size);
 
     for(int x(0); x < size; x++) {

@@ -140,7 +140,7 @@ private:
      * @param size The size of the new field.
      * @returns A new play field.
      */
-    [[nodiscard]] PlayField initEmptyPlayField(int size) const;
+    [[nodiscard]] static PlayField initEmptyPlayField(int size) ;
 
     /**
      * Check if the user has finished the game.
