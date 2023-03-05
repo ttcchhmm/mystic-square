@@ -89,7 +89,7 @@ public slots:
      * Save a game to a file.
      * @param file The file to save to.
      */
-    void saveGame(QFile & file) STUB;
+    void saveGame(QFile & file);
 
     /**
      * Move the specified tile to the empty space next to it if possible.
@@ -116,6 +116,12 @@ signals:
      * @param file The file concerned by this failure.
      */
     void loadFailure(QFile & file);
+
+    /**
+     * Emitted when an error occurred while saving a game.
+     * @param file The file concerned by this failure.
+     */
+    void saveFailure(QFile & file);
 
 private:
     /**

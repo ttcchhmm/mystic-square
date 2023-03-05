@@ -180,6 +180,29 @@ void Game::loadGame(QFile &file) {
     emit gameCreated(_playField, _numberOfMoves);
 }
 
+void Game::saveGame(QFile &file) {
+    // Try to open the file for writing
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
+        qWarning() << "Failed to open for writing:" << file.fileName();
+        emit saveFailure(file);
+        return;
+    }
+
+    QTextStream out(&file);
+    out << _size << ' ' << _numberOfMoves << '\n'; // Write the header
+
+    // Write the content
+    for(auto const & line : _playField) {
+        for(auto const & val : line) {
+            out << val << ' ';
+        }
+
+        out << '\n';
+    }
+
+    file.close();
+}
+
 const Game::PlayField &Game::getPlayField() const {
     return _playField;
 }
