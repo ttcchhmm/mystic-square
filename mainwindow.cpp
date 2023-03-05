@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_game.data(), &Game::played, this, &MainWindow::handlePlay);
     connect(_game.data(), &Game::gameCreated, this, &MainWindow::handleNewGame);
     connect(_game.data(), &Game::loadFailure, this, &MainWindow::loadFailure);
+    connect(_game.data(), &Game::saveFailure, this, &MainWindow::saveFailure);
 }
 
 MainWindow::~MainWindow() {
@@ -89,6 +90,10 @@ void MainWindow::saveGame() {
 
 void MainWindow::loadFailure(QFile &file) {
     QMessageBox::critical(this, tr("Loading failure", "Window title"), tr("Failed to load the game saved to: %1").arg(file.fileName()));
+}
+
+void MainWindow::saveFailure(QFile &file) {
+    QMessageBox::critical(this, tr("Save failure", "Window title"), tr("Failed to save the game to: %1").arg(file.fileName()));
 }
 
 void MainWindow::handlePlay(unsigned int numberOfMoves) {
