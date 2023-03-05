@@ -92,6 +92,11 @@ public slots:
      */
     void handleNewGame(Game::PlayField & playField, unsigned int numberOfMoves);
 
+    /**
+     * Executed when the player won the game.
+     */
+    void gameEnded();
+
 signals:
     void backgroundUpdated(Background newBackground);
 

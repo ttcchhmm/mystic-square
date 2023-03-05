@@ -175,6 +175,16 @@
         <source>Failed to save the game to: %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You won !</source>
+        <comment>Window title</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Congratulations, you won !
+You used %1 move(s).</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewGameDialog</name>

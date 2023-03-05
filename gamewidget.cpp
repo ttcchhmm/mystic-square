@@ -50,6 +50,7 @@ void GameWidget::changeSize(int size) {
 }
 
 void GameWidget::handleNewGame(Game::PlayField &playField) {
+    setEnabled(true);
     changeSize(playField.size());
 }
 

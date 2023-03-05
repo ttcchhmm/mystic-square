@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_game.data(), &Game::gameCreated, this, &MainWindow::handleNewGame);
     connect(_game.data(), &Game::loadFailure, this, &MainWindow::loadFailure);
     connect(_game.data(), &Game::saveFailure, this, &MainWindow::saveFailure);
+    connect(_game.data(), &Game::gameWon, this, &MainWindow::gameEnded);
 }
 
 MainWindow::~MainWindow() {
@@ -106,4 +107,9 @@ void MainWindow::handleNewGame(Game::PlayField & playField, unsigned int numberO
 
 const QSharedPointer<Game> &MainWindow::getGame() const {
     return _game;
+}
+
+void MainWindow::gameEnded() {
+    ui->playArea->setEnabled(false);
+    QMessageBox::information(this, tr("You won !", "Window title"), tr("Congratulations, you won !\nYou used %1 move(s).").arg(_game->getNumberOfMoves()));
 }
