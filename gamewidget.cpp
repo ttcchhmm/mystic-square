@@ -71,7 +71,7 @@ void GameWidget::redrawTiles() {
                 auto val(_game->getPlayField()[x][y]);
                 auto btn(getTileLabel(val));
 
-                if(val != -1) {
+                if(val != Game::EMPTY_TILE) {
                     QPixmap content(TILE_SIZE, TILE_SIZE);
                     content.fill(palette().color(QPalette::Highlight)); // System highlight color
 
@@ -112,7 +112,7 @@ void GameWidget::redrawTiles() {
                 auto val(_game->getPlayField()[x][y]);
                 auto btn(getTileLabel(val));
 
-                if(val != -1) {
+                if(val != Game::EMPTY_TILE) {
                     btn->setIcon(_tiles[val]);
                 } else {
                     btn->setEnabled(false);
@@ -131,7 +131,7 @@ QPushButton *GameWidget::getTileLabel(int val) {
     btn->setFlat(true);
 
     // Trigger a change only on a non-empty space.
-    if(val != -1) {
+    if(val != Game::EMPTY_TILE) {
         connect(btn, &QPushButton::clicked, this, [this, val]() {
            _game->move(val);
         });

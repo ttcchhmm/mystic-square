@@ -22,12 +22,12 @@ void Game::newGame(const int &size) {
         toPlace.append(i);
     }
 
-    // Initialize the play field with -1.
+    // Initialize the play field with empty tiles.
     for(int x(0); x < _size; x++) {
         _playField[x] = QVector<int>(_size);
 
         for(int y(0); y < _size; y++) {
-            _playField[x][y] = -1;
+            _playField[x][y] = EMPTY_TILE;
         }
     }
 
@@ -45,16 +45,16 @@ void Game::newGame(const int &size) {
             do {
                 x = QRandomGenerator::global()->bounded(_size);
                 y = QRandomGenerator::global()->bounded(_size);
-            } while(_playField[x][y] != -1);
+            } while(_playField[x][y] != EMPTY_TILE);
 
             _playField[x][y] = toPlace.takeFirst(); // Dequeue the first element.
         }
     }
 
-    // Place a random free tile.
+    // Place a random empty tile.
     auto voidX(QRandomGenerator::global()->bounded(_size));
     auto voidY(QRandomGenerator::global()->bounded(_size));
-    _playField[voidX][voidY] = -1;
+    _playField[voidX][voidY] = EMPTY_TILE;
 
     // Print the play field to the console.
     for(auto const & x : _playField) {
@@ -99,11 +99,11 @@ void Game::move(int tile) {
            emptyY >= 0 &&
            emptyX < _size &&
            emptyY < _size &&
-           _playField[emptyX][emptyY] == -1) {
+           _playField[emptyX][emptyY] == EMPTY_TILE) {
 
             // Swap with the empty tile.
             _playField[emptyX][emptyY] = _playField[x][y];
-            _playField[x][y] = -1;
+            _playField[x][y] = EMPTY_TILE;
             _numberOfMoves++;
 
             emit played(_numberOfMoves);

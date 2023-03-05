@@ -20,6 +20,11 @@ public:
      */
     using PlayField = QVector<QVector<int>>;
 
+    /**
+     * The value of the empty tile.
+     */
+    static const int EMPTY_TILE = -1;
+
 private:
     /**
      * Defines a delta on two axis.
