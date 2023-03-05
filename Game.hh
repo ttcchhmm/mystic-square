@@ -123,6 +123,11 @@ signals:
      */
     void saveFailure(QFile & file);
 
+    /**
+     * Emitted when the player won the game.
+     */
+    void gameWon();
+
 private:
     /**
      * Initialize an empty play field.
@@ -130,6 +135,12 @@ private:
      * @returns A new play field.
      */
     [[nodiscard]] PlayField initEmptyPlayField(int size) const;
+
+    /**
+     * Check if the user has finished the game.
+     * @return True if the player won, false otherwise.
+     */
+    [[nodiscard]] bool hasWon() const;
 };
 
 

@@ -114,6 +114,10 @@ void Game::move(int tile) {
             emit played(_numberOfMoves);
         }
     }
+
+    if(hasWon()) {
+        emit gameWon();
+    }
 }
 
 void Game::loadGame(QFile &file) {
@@ -210,4 +214,20 @@ const Game::PlayField &Game::getPlayField() const {
 void Game::enableRiggedMode() {
     _riggedMode = true;
     qDebug() << "Rigged mode enabled.";
+}
+
+bool Game::hasWon() const {
+    int expected(0);
+
+    for(auto const & line : _playField) {
+        for(auto const & val : line) {
+            if(val == -1 || val == expected) {
+                expected++;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
