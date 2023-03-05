@@ -12,7 +12,7 @@ Game::Game(const int &size, QObject* parent): QObject(parent), _size(size), _num
 void Game::newGame(const int &size) {
     _size = size;
     _numberOfMoves = 0;
-    _playField = PlayField(_size);
+    _playField = initEmptyPlayField(size);
 
     // Contain the tiles ID to place. Will be used as a queue.
     QVector<int> toPlace;
@@ -20,15 +20,6 @@ void Game::newGame(const int &size) {
 
     for(int i(0); i < _size * _size; i++) {
         toPlace.append(i);
-    }
-
-    // Initialize the play field with empty tiles.
-    for(int x(0); x < _size; x++) {
-        _playField[x] = QVector<int>(_size);
-
-        for(int y(0); y < _size; y++) {
-            _playField[x][y] = EMPTY_TILE;
-        }
     }
 
     if(_riggedMode) { // In rigged mode, don't use a random order.
@@ -66,7 +57,21 @@ void Game::newGame(const int &size) {
         qDebug() << line;
     }
 
-    emit gameCreated(_playField);
+    emit gameCreated(_playField, 0);
+}
+
+Game::PlayField Game::initEmptyPlayField(int size) const {
+    PlayField field(size);
+
+    for(int x(0); x < size; x++) {
+        field[x] = QVector<int>(size);
+
+        for(int y(0); y < size; y++) {
+            field[x][y] = EMPTY_TILE;
+        }
+    }
+
+    return field;
 }
 
 void Game::move(int tile) {
@@ -109,6 +114,70 @@ void Game::move(int tile) {
             emit played(_numberOfMoves);
         }
     }
+}
+
+void Game::loadGame(QFile &file) {
+    // Try to open the file
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Failed to open:" << file.fileName();
+        emit loadFailure(file);
+        return;
+    }
+
+    // Read the file
+    QTextStream in(&file);
+    auto data(in.readAll().trimmed());
+    file.close();
+
+    // Process the file
+    auto lines(data.split("\n"));
+
+    // Check for a minimal amount of lines (at least a header and 3 lines).
+    if(lines.length() < 4) {
+        qWarning() << "Not enough lines:" << lines.length();
+        emit loadFailure(file);
+        return;
+    }
+
+    auto firstLine(lines[0].split(" "));
+
+    // Check if the header is correctly formatted.
+    if(firstLine.length() != 2) {
+        qWarning() << "Invalid header:" << firstLine.length();
+        emit loadFailure(file);
+        return;
+    }
+
+    auto size(firstLine[0].toInt());
+
+    // Check if all the lines are present (+ header).
+    if(lines.length() != size + 1) {
+        qWarning() << "Invalid number of lines:" << lines.length();
+        emit loadFailure(file);
+        return;
+    }
+
+    auto field(initEmptyPlayField(size));
+
+    // Parse the file.
+    for(int x(1); x < lines.length(); x++) {
+        auto line(lines[x].trimmed().split(" "));
+
+        if(line.length() != size) {
+            qWarning() << "Invalid number of values within a line:" << line.length();
+            emit loadFailure(file);
+            return;
+        }
+
+        for(int y(0); y < line.length(); y++) {
+            field[x - 1][y] = line[y].toInt();
+        }
+    }
+
+    _numberOfMoves = firstLine[1].toUInt();
+    _playField = field;
+
+    emit gameCreated(_playField, _numberOfMoves);
 }
 
 const Game::PlayField &Game::getPlayField() const {

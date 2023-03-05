@@ -83,7 +83,7 @@ public slots:
      * Load a saved game from a file.
      * @param file The file to load.
      */
-    void loadGame(QFile & file) STUB;
+    void loadGame(QFile & file);
 
     /**
      * Save a game to a file.
@@ -107,8 +107,23 @@ signals:
     /**
      * Emitted after a new game is created.
      * @param playField The new play area.
+     * @param numberOfMoves The current number of moves (in case of a loaded game).
      */
-    void gameCreated(PlayField & playField);
+    void gameCreated(PlayField & playField, unsigned int numberOfMoves);
+
+    /**
+     * Emitted when a saved game couldn't be loaded.
+     * @param file The file concerned by this failure.
+     */
+    void loadFailure(QFile & file);
+
+private:
+    /**
+     * Initialize an empty play field.
+     * @param size The size of the new field.
+     * @returns A new play field.
+     */
+    [[nodiscard]] PlayField initEmptyPlayField(int size) const;
 };
 
 

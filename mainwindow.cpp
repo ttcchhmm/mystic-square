@@ -90,8 +90,8 @@ void MainWindow::handlePlay(unsigned int numberOfMoves) {
     this->ui->moveCountLabel->setText(tr("Moves: %1", "Number of moves display").arg(numberOfMoves));
 }
 
-void MainWindow::handleNewGame(Game::PlayField & playField) {
-    this->ui->moveCountLabel->setText(tr("Moves: %1", "Number of moves display").arg(0));
+void MainWindow::handleNewGame(Game::PlayField & playField, unsigned int numberOfMoves) {
+    this->ui->moveCountLabel->setText(tr("Moves: %1", "Number of moves display").arg(numberOfMoves));
 }
 
 const QSharedPointer<Game> &MainWindow::getGame() const {

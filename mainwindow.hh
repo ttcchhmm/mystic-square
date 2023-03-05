@@ -76,8 +76,9 @@ public slots:
     /**
      * Executed when a new game is started.
      * @param playField The new play field.
+     * @param numberOfMoves The current number of moves (in case of a loaded game).
      */
-    void handleNewGame(Game::PlayField & playField);
+    void handleNewGame(Game::PlayField & playField, unsigned int numberOfMoves);
 
 signals:
     void backgroundUpdated(Background newBackground);
