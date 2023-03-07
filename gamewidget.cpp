@@ -66,32 +66,23 @@ void GameWidget::redrawTiles() {
     // The height of a subsection inside the pixmap
     int height(_pixmap.height() / _size);
 
+    // Generate tiles
+    QVector<QPixmap> _tiles(_size * _size);
+
     if(_bg == Background::NUMBERED) { // Without a picture
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
-                auto val(_game->getPlayField()[x][y]);
-                auto btn(getTileLabel(val));
+                QPixmap content(TILE_SIZE, TILE_SIZE);
+                content.fill(palette().color(QPalette::Highlight)); // System highlight color
 
-                if(val != Game::EMPTY_TILE) {
-                    QPixmap content(TILE_SIZE, TILE_SIZE);
-                    content.fill(palette().color(QPalette::Highlight)); // System highlight color
+                QPainter painter(&content);
+                painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
+                painter.drawText(QRectF(0, 0, TILE_SIZE, TILE_SIZE), Qt::AlignHCenter | Qt::AlignVCenter,QString::number(x + _size * y + 1));
 
-                    QPainter painter(&content);
-                    painter.setPen(palette().color(QPalette::Text)); // System text color. Used to avoid black text in dark mode.
-                    painter.drawText(QRectF(0, 0, TILE_SIZE, TILE_SIZE), Qt::AlignHCenter | Qt::AlignVCenter, QString::number(val + 1));
-
-                    btn->setIcon(content);
-                } else {
-                    btn->setEnabled(false);
-                }
-
-                _layout->addWidget(btn, x, y);
+                _tiles[x + _size * y] = content;
             }
         }
     } else { // With a picture
-        // Generate tiles
-        QVector<QPixmap> _tiles(_size * _size);
-
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
                 _tiles[x + _size * y] = _pixmap.copy( // Extract from the current picture.
@@ -106,21 +97,21 @@ void GameWidget::redrawTiles() {
                         Qt::TransformationMode::SmoothTransformation); // Better picture quality.
             }
         }
+    }
 
-        // Set tiles
-        for(int x(0); x < _size; x++) {
-            for(int y(0); y < _size; y++) {
-                auto val(_game->getPlayField()[x][y]);
-                auto btn(getTileLabel(val));
+    // Set tiles
+    for(int x(0); x < _size; x++) {
+        for(int y(0); y < _size; y++) {
+            auto val(_game->getPlayField()[x][y]);
+            auto btn(getTileLabel(val));
 
-                if(val != Game::EMPTY_TILE) {
-                    btn->setIcon(_tiles[val]);
-                } else {
-                    btn->setEnabled(false);
-                }
-
-                _layout->addWidget(btn, x, y);
+            if(val != Game::EMPTY_TILE) {
+                btn->setIcon(_tiles[val]);
+            } else {
+                btn->setEnabled(false);
             }
+
+            _layout->addWidget(btn, x, y);
         }
     }
 }
