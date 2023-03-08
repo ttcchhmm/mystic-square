@@ -33,9 +33,9 @@ private:
     Background _bg;
 
     /**
-     * The current picture.
+     * The current tiles.
      */
-     QPixmap _pixmap;
+    QVector<QPixmap> _tiles;
 
     /**
      * The current size.
@@ -61,7 +61,7 @@ public:
 
 public slots:
     /**
-     * Change the current background.
+     * Change the current background and redraw tiles.
      * @param bg The background to change to.
      */
     void changeBackground(Background bg);

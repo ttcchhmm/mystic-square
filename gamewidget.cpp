@@ -7,7 +7,6 @@
 GameWidget::GameWidget(QWidget *parent):
     QWidget(parent),
     _bg(Background::NUMBERED),
-    _pixmap(0, 0),
     _size(3),
     /* The parent is the central widget of the main window, but we want the main window instance.
        Ugly, but we can't add more parameters to a constructor used as a promoted widget in Designer. */
@@ -20,54 +19,12 @@ GameWidget::GameWidget(QWidget *parent):
     connect(_game.data(), &Game::gameCreated, this, &GameWidget::handleNewGame);
     connect(_game.data(), &Game::played, this, &GameWidget::redrawTiles);
 
-    redrawTiles();
+    changeBackground(_bg);
 }
 
 void GameWidget::changeBackground(Background bg) {
     _bg = bg;
-
-    switch (_bg) {
-        case Background::NUMBERED:
-            _pixmap = QPixmap(0, 0);
-            break;
-        case Background::FOREST:
-            _pixmap.load(":/assets/forest.jpg");
-            break;
-        case Background::TREE:
-            _pixmap.load(":/assets/tree.jpg");
-            break;
-        case Background::NETWORK:
-            _pixmap.load(":/assets/network.jpeg");
-            break;
-    }
-
-    redrawTiles();
-}
-
-void GameWidget::changeSize(int size) {
-    _size = size;
-    redrawTiles();
-}
-
-void GameWidget::handleNewGame(Game::PlayField &playField) {
-    setEnabled(true);
-    changeSize(playField.size());
-}
-
-void GameWidget::redrawTiles() {
-    // Clear the grid.
-    for(auto w : this->findChildren<QWidget*>()) {
-        w->deleteLater();
-    }
-
-    auto widgetSize((TILE_SIZE + SPACING) * _size);
-    setFixedSize(widgetSize, widgetSize);
-
-    // The height of a subsection inside the pixmap
-    int height(_pixmap.height() / _size);
-
-    // Generate tiles
-    QVector<QPixmap> _tiles(_size * _size);
+    _tiles = QVector<QPixmap>(_size * _size);
 
     if(_bg == Background::NUMBERED) { // Without a picture
         for(int x(0); x < _size; x++) {
@@ -83,9 +40,29 @@ void GameWidget::redrawTiles() {
             }
         }
     } else { // With a picture
+        // Load the pixmap.
+        QPixmap pixmap;
+        switch (_bg) {
+            case Background::FOREST:
+                pixmap.load(":/assets/forest.jpg");
+                break;
+            case Background::TREE:
+                pixmap.load(":/assets/tree.jpg");
+                break;
+            case Background::NETWORK:
+                pixmap.load(":/assets/network.jpeg");
+                break;
+            default:
+                throw std::logic_error("Invalid background type.");
+        }
+
+        // The height of a tile.
+        int height(pixmap.height() / _size);
+
+        // Generate tiles from loaded picture.
         for(int x(0); x < _size; x++) {
             for(int y(0); y < _size; y++) {
-                _tiles[x + _size * y] = _pixmap.copy( // Extract from the current picture.
+                _tiles[x + _size * y] = pixmap.copy( // Extract from the current picture.
                         height * x,
                         height * y,
                         height,
@@ -98,6 +75,28 @@ void GameWidget::redrawTiles() {
             }
         }
     }
+
+    redrawTiles();
+}
+
+void GameWidget::changeSize(int size) {
+    _size = size;
+    changeBackground(_bg);
+}
+
+void GameWidget::handleNewGame(Game::PlayField &playField) {
+    setEnabled(true);
+    changeSize(playField.size());
+}
+
+void GameWidget::redrawTiles() {
+    // Clear the grid.
+    for(auto w : this->findChildren<QWidget*>()) {
+        w->deleteLater();
+    }
+
+    auto widgetSize((TILE_SIZE + SPACING) * _size);
+    setFixedSize(widgetSize, widgetSize);
 
     // Set tiles
     for(int x(0); x < _size; x++) {
