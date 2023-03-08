@@ -48,14 +48,7 @@ void Game::newGame(const int &size) {
     _playField[voidX][voidY] = EMPTY_TILE;
 
     // Print the play field to the console.
-    for(auto const & x : _playField) {
-        QString line;
-        for(auto const & y : x) {
-            line += QString::number(y) + " / ";
-        }
-
-        qDebug() << line;
-    }
+    displayPlayField(_playField);
 
     emit gameCreated(_playField, 0);
 }
@@ -182,6 +175,8 @@ void Game::loadGame(QFile &file) {
     _size = size;
     _playField = field;
 
+    displayPlayField(_playField);
+
     emit gameCreated(_playField, _numberOfMoves);
 }
 
@@ -235,4 +230,15 @@ bool Game::hasWon() const {
     }
 
     return true;
+}
+
+void Game::displayPlayField(const Game::PlayField &playField) {
+    for(auto const & x : playField) {
+        QString line;
+        for(auto const & y : x) {
+            line += QString::number(y) + " / ";
+        }
+
+        qDebug() << line;
+    }
 }

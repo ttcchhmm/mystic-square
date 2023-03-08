@@ -147,6 +147,8 @@ private:
      * @return True if the player won, false otherwise.
      */
     [[nodiscard]] bool hasWon() const;
+
+    static void displayPlayField(PlayField const & playField);
 };
 
 
