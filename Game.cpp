@@ -179,6 +179,7 @@ void Game::loadGame(QFile &file) {
     }
 
     _numberOfMoves = firstLine[1].toUInt();
+    _size = size;
     _playField = field;
 
     emit gameCreated(_playField, _numberOfMoves);
